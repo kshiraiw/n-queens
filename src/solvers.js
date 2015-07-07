@@ -27,9 +27,9 @@ window.findNRooksSolution = function(n) {
     console.log(count)
     if (numRooks === n && !currentBoard.hasAnyRooksConflicts()) {
       count++;
-      if(numRooks !== 0){
-        numRooks--;
-      }
+      // if(numRooks !== 0){
+      //   numRooks--;
+      // }
       return;
       // count++;
       // numRooks--;
@@ -40,23 +40,23 @@ window.findNRooksSolution = function(n) {
 
     } 
     
-    currentBoard.togglePiece(x,y);
-    if(currentBoard.hasAnyRooksConflicts()) {
-      currentBoard.togglePiece(x,y);
-      y++;
-      placeRook(x,y, currentBoard);
-    } else {
-      numRooks++;
-      x++;
-      y = 0;
-      placeRook(x,y, currentBoard);
+    for( var i = y; i < currentBoard.rows().length; i++) {
+      currentBoard.togglePiece(x,i);
+      if(currentBoard.hasAnyRooksConflicts()) {
+        currentBoard.togglePiece(x,i);
+        continue;
+      } else {
+        numRooks++;
+        placeRook(x + 1, 0, currentBoard);
+        currentBoard.togglePiece(x,i);
+      }
     }
-    if (numRooks !==n ) {
-      currentBoard.togglePiece(x,y);
-      //togglePiece(x,y)
-      y++;
-      placeRook(x,y,currentBoard);
-    }
+    // if (numRooks !==n ) {
+    //   currentBoard.togglePiece(x,y);
+    //   //togglePiece(x,y)
+    //   y++;
+    //   placeRook(x,y,currentBoard);
+    // }
   };
   placeRook(horizontal, vertical, board);
   // var placeRook = function() {
